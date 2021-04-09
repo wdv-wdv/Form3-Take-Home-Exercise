@@ -12,10 +12,11 @@ Then I expended my testing to check for data integrity on the Attribute and Acco
 
 In the module I declared the package name `accountapi` and separated the diffident operations into their own files with the view of easing future maintenance. I also created a separate file holding all the data type.  
 
+* **AccountAPI.go** holds AccountAPI struct and constructor
 * **AccountAPI-Create.go** implement `Create` operation
 * **AccountAPI-Fetch.go** implement `Fetch` operation
 * **AccountAPI-Delete.go** implement `Delete` operation
-* **AccountAPI-dataStruct.go** hold data struct type declarations
+* **AccountAPI-dataStruct.go** holds data struct type declarations
 
 Type listed below:
 
@@ -27,9 +28,7 @@ Type listed below:
 
 ## Testing  
 
-It looks like test is run in the order they appear in the test file. This works for me because It means I can test the `Create`, `Fetch`, and `Delete` operations in that order.
-
-In the test file I declared a **static NewAccount object** for reuse across all the test. I also turn the **data integrity routine** into a private function so it can be reused in all the test where a Account object is returned for comparing to the static NewAccount object mention before.
+I created a few tests for basic `Create`, `Fetch`, and `Delete` operations as well as a function for producing mock **NewAccount objects**. I also turn the **data integrity routine** into a private function so it can be reused in all the test where a Account object is returned for comparing to the mock NewAccount object mention before.
 
 The data integrity show a few **issue with missing Attributes**; `Names` and `alternative_names`. Also the test for deleting a non-existing Account is showing the API not returning the same HTTP code as per the documentation.
 
@@ -37,6 +36,9 @@ I believe the **Form3 API documentation** is ahead of the Fake-API. In the end I
 
 Here is a list of test provided in the assignment:
 
+* **Test_Constructor** Check Constructor expect a valid url
+* **Test_ConstructorSchemaWrong** Checks only "http" & "https" Scheme allowed logic
+* **Test_ConstructorQSWrong** Checks no query-string allowed logic
 * **Test_Create** Checks `Create` operation and data integrity
 * **Test_CreateWithDuplicateID** Checks `Create` operation returns a error object
 * **Test_Fetch** Checks `Fetch` operation and data integrity

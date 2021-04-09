@@ -9,10 +9,10 @@ import (
 	"github.com/google/uuid"
 )
 
-func Delete(accountID uuid.UUID, version int) error {
+func (accountAPI *AccountAPI) Delete(accountID uuid.UUID, version int) error {
 
 	//### http request to fake-api ###
-	url := fmt.Sprintf("http://localhost:8080/v1/organisation/accounts/%s?version=%v", accountID.String(), version)
+	url := fmt.Sprintf("%s/organisation/accounts/%s?version=%v", accountAPI.baseurl, accountID.String(), version)
 	req, err := http.NewRequest(http.MethodDelete, url, nil)
 	client := &http.Client{}
 	res, err := client.Do(req)

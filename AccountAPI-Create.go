@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-func Create(r NewAccount) (Account, Links, error) {
+func (accountAPI *AccountAPI) Create(r NewAccount) (Account, Links, error) {
 
 	//### Generate request body payload ###
 	j, _ := json.Marshal(struct {
@@ -27,7 +27,7 @@ func Create(r NewAccount) (Account, Links, error) {
 
 	//### http request to fake-api ###
 	res, err := http.Post(
-		"http://localhost:8080/v1/organisation/accounts",
+		fmt.Sprintf("%s/organisation/accounts", accountAPI.baseurl), //"http://localhost:8080",
 		"Content-Type: application/vnd.api+json",
 		requestBody,
 	)

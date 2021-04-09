@@ -9,10 +9,10 @@ import (
 	"github.com/google/uuid"
 )
 
-func Fetch(accountID uuid.UUID) (Account, Links, error) {
+func (accountAPI *AccountAPI) Fetch(accountID uuid.UUID) (Account, Links, error) {
 
 	//### http request to fake-api ###
-	url := fmt.Sprintf("http://localhost:8080/v1/organisation/accounts/%s", accountID.String())
+	url := fmt.Sprintf("%s/organisation/accounts/%s", accountAPI.baseurl, accountID.String())
 	res, err := http.Get(url)
 	if err != nil {
 		return Account{}, Links{}, err
